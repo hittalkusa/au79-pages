@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AU79 Recording Studios — Philadelphia</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;
+  --gold-light:#E8C96A;
+  --gold-dim:#8B6E2E;
+  --black:#000000;
+  --surface:#0a0a0a;
+  --surface2:#111111;
+  --border:rgba(201,168,76,0.2);
+  --text:#f0f0f0;
+  --text-dim:#999999;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+/* ANIMATED BACKGROUND */
+.bg-canvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.particle{
+  position:absolute;width:1px;height:1px;
+  background:var(--gold);border-radius:50%;
+  animation:float linear infinite;opacity:0;
+}
+@keyframes float{
+  0%{transform:translateY(100vh) translateX(0);opacity:0;}
+  10%{opacity:0.6;}
+  90%{opacity:0.3;}
+  100%{transform:translateY(-100px) translateX(40px);opacity:0;}
+}
+.grid-lines{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size:80px 80px;
+  pointer-events:none;z-index:0;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 60px;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  transition:all 0.3s;
+}
+.nav-logo{
+  font-family:'Cinzel',serif;font-size:22px;font-weight:700;
+  color:var(--gold);letter-spacing:3px;
+  display:flex;align-items:center;gap:12px;
+}
+.nav-logo-icon{
+  width:40px;height:40px;
+  border:2px solid var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--gold);
+  position:relative;
+}
+.nav-logo-icon::after{
+  content:'79';
+  position:absolute;top:-8px;right:-8px;
+  font-size:9px;background:var(--gold);color:var(--black);
+  padding:1px 4px;font-weight:700;
+}
+.nav-links{display:flex;align-items:center;gap:36px;}
+.nav-links a{
+  color:var(--text-dim);text-decoration:none;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+  transition:color 0.3s;position:relative;
+}
+.nav-links a::after{
+  content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  background:var(--gold);transform:scaleX(0);transition:transform 0.3s;
+}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{
+  background:var(--gold);color:var(--black);
+  padding:10px 24px;font-size:12px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:600;
+  text-decoration:none;transition:all 0.3s;
+  border:1px solid var(--gold);
+}
+.nav-cta:hover{background:transparent;color:var(--gold);}
+
+/* HERO */
+.hero{
+  position:relative;z-index:1;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:120px 40px 80px;
+  overflow:hidden;
+}
+.hero-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:600px;height:600px;
+  background:radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+  animation:pulse 4s ease-in-out infinite;pointer-events:none;
+}
+@keyframes pulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.8;}
+  50%{transform:translate(-50%,-50%) scale(1.1);opacity:1;}
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border);padding:8px 20px;
+  font-size:11px;letter-spacing:3px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:40px;
+  animation:fadeIn 1s ease 0.2s both;
+}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.hero-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(48px,8vw,96px);
+  font-weight:700;line-height:0.95;
+  letter-spacing:-2px;
+  margin-bottom:24px;
+  animation:fadeIn 1s ease 0.4s both;
+}
+.hero-title .gold{color:var(--gold);}
+.hero-title .outline{
+  -webkit-text-stroke:1px rgba(201,168,76,0.5);
+  color:transparent;
+}
+.hero-subtitle{
+  font-size:16px;color:var(--text-dim);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:16px;
+  animation:fadeIn 1s ease 0.5s both;
+}
+.hero-desc{
+  font-size:18px;color:var(--text-dim);
+  max-width:560px;line-height:1.8;margin-bottom:60px;
+  animation:fadeIn 1s ease 0.6s both;
+}
+.hero-actions{
+  display:flex;gap:20px;flex-wrap:wrap;justify-content:center;
+  animation:fadeIn 1s ease 0.8s both;
+}
+.btn-primary{
+  background:var(--gold);color:var(--black);
+  padding:16px 40px;font-size:13px;letter-spacing:3px;
+  text-transform:uppercase;font-weight:600;
+  text-decoration:none;transition:all 0.3s;
+  border:1px solid var(--gold);display:inline-block;
+}
+.btn-primary:hover{background:transparent;color:var(--gold);transform:translateY(-2px);}
+.btn-secondary{
+  background:transparent;color:var(--gold);
+  padding:16px 40px;font-size:13px;letter-spacing:3px;
+  text-transform:uppercase;font-weight:600;
+  text-decoration:none;transition:all 0.3s;
+  border:1px solid var(--border);display:inline-block;
+}
+.btn-secondary:hover{border-color:var(--gold);transform:translateY(-2px);}
+.hero-scroll{
+  position:absolute;bottom:40px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeIn 1s ease 1.2s both;
+}
+.scroll-line{
+  width:1px;height:60px;background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim{
+  0%,100%{transform:scaleY(1);opacity:1;}
+  50%{transform:scaleY(0.5);opacity:0.5;}
+}
+.scroll-text{font-size:10px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;}
+
+/* STATS */
+.stats{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+}
+.stat-item{
+  padding:60px 40px;text-align:center;
+  border-right:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:background 0.3s;
+}
+.stat-item:last-child{border-right:none;}
+.stat-item:hover{background:rgba(201,168,76,0.03);}
+.stat-number{
+  font-family:'Cinzel',serif;font-size:48px;font-weight:700;
+  color:var(--gold);display:block;margin-bottom:8px;
+}
+.stat-label{font-size:11px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;}
+
+/* SECTION SHARED */
+section{position:relative;z-index:1;padding:120px 60px;}
+.section-eyebrow{
+  font-size:11px;letter-spacing:4px;color:var(--gold);
+  text-transform:uppercase;margin-bottom:16px;
+  display:flex;align-items:center;gap:16px;
+}
+.section-eyebrow::before{content:'';width:40px;height:1px;background:var(--gold);}
+.section-title{
+  font-family:'Cinzel',serif;font-size:clamp(32px,4vw,56px);
+  font-weight:700;line-height:1.1;margin-bottom:24px;
+}
+.section-desc{font-size:16px;color:var(--text-dim);line-height:1.8;max-width:560px;}
+
+/* SERVICES */
+.services-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--border);margin-top:80px;
+}
+.service-card{
+  background:var(--black);padding:48px 40px;
+  position:relative;overflow:hidden;
+  transition:background 0.4s;cursor:default;
+}
+.service-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--gold);transform:scaleX(0);transition:transform 0.4s;
+}
+.service-card:hover{background:var(--surface);}
+.service-card:hover::before{transform:scaleX(1);}
+.service-number{
+  font-family:'Cinzel',serif;font-size:64px;font-weight:700;
+  color:rgba(201,168,76,0.08);position:absolute;top:20px;right:24px;
+  line-height:1;
+}
+.service-icon{
+  width:48px;height:48px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;font-size:20px;color:var(--gold);
+  transition:border-color 0.3s;
+}
+.service-card:hover .service-icon{border-color:var(--gold);}
+.service-title{
+  font-family:'Cinzel',serif;font-size:20px;font-weight:600;
+  margin-bottom:16px;color:var(--text);
+}
+.service-desc{font-size:14px;color:var(--text-dim);line-height:1.8;margin-bottom:24px;}
+.service-price{
+  font-size:13px;letter-spacing:2px;color:var(--gold);
+  text-transform:uppercase;font-weight:600;
+}
+
+/* ABOUT */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-visual{
+  position:relative;aspect-ratio:4/5;
+  background:var(--surface);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.about-logo-large{
+  font-family:'Cinzel',serif;font-size:120px;font-weight:700;
+  color:rgba(201,168,76,0.06);position:absolute;
+  user-select:none;
+}
+.about-logo-center{
+  font-family:'Cinzel',serif;font-size:48px;font-weight:700;
+  color:var(--gold);letter-spacing:8px;position:relative;z-index:1;
+}
+.about-badge-float{
+  position:absolute;bottom:32px;left:32px;
+  border:1px solid var(--border);background:rgba(0,0,0,0.9);
+  padding:16px 24px;
+}
+.about-badge-label{font-size:10px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;}
+.about-badge-value{font-family:'Cinzel',serif;font-size:24px;color:var(--gold);font-weight:700;}
+.about-content{}
+.about-list{list-style:none;margin-top:40px;}
+.about-list li{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px 0;border-bottom:1px solid var(--border);
+  font-size:14px;color:var(--text-dim);line-height:1.7;
+}
+.about-list li::before{
+  content:'';width:6px;height:6px;background:var(--gold);
+  border-radius:50%;margin-top:6px;flex-shrink:0;
+}
+
+/* BOOKING */
+.booking-section{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.booking-inner{
+  max-width:1000px;margin:0 auto;text-align:center;
+}
+.booking-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:40px;margin:80px 0;text-align:left;
+}
+.step{position:relative;padding-left:48px;}
+.step-num{
+  position:absolute;left:0;top:0;
+  font-family:'Cinzel',serif;font-size:48px;font-weight:700;
+  color:rgba(201,168,76,0.15);line-height:1;
+}
+.step-title{font-size:16px;font-weight:600;margin-bottom:8px;margin-top:8px;}
+.step-desc{font-size:13px;color:var(--text-dim);line-height:1.7;}
+
+/* TEAM */
+.team-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:2px;background:var(--border);margin-top:80px;
+}
+.team-card{
+  background:var(--black);padding:48px 40px;
+  transition:background 0.3s;
+}
+.team-card:hover{background:var(--surface);}
+.team-initials{
+  width:64px;height:64px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:20px;color:var(--gold);
+  margin-bottom:24px;font-weight:700;
+}
+.team-name{font-family:'Cinzel',serif;font-size:20px;font-weight:600;margin-bottom:4px;}
+.team-role{font-size:12px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+.team-bio{font-size:13px;color:var(--text-dim);line-height:1.8;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-info{}
+.contact-item{
+  display:flex;align-items:flex-start;gap:20px;
+  padding:24px 0;border-bottom:1px solid var(--border);
+}
+.contact-icon{
+  width:40px;height:40px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;color:var(--gold);flex-shrink:0;
+}
+.contact-label{font-size:10px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;margin-bottom:4px;}
+.contact-value{font-size:15px;color:var(--text);font-weight:500;}
+.contact-form{}
+.form-group{margin-bottom:20px;}
+.form-label{font-size:10px;letter-spacing:3px;color:var(--text-dim);text-transform:uppercase;display:block;margin-bottom:8px;}
+.form-input,.form-textarea{
+  width:100%;background:var(--surface);
+  border:1px solid var(--border);color:var(--text);
+  padding:14px 20px;font-size:14px;font-family:'Inter',sans-serif;
+  transition:border-color 0.3s;outline:none;
+}
+.form-input:focus,.form-textarea:focus{border-color:var(--gold);}
+.form-textarea{height:120px;resize:vertical;}
+
+/* MOVEMENT */
+.movement{
+  text-align:center;padding:160px 60px;
+  background:var(--surface);
+  border-top:1px solid var(--border);
+}
+.movement-title{
+  font-family:'Cinzel',serif;font-size:clamp(40px,6vw,80px);
+  font-weight:700;line-height:1.1;margin-bottom:32px;
+}
+.movement-subtitle{
+  font-size:16px;color:var(--text-dim);
+  max-width:500px;margin:0 auto 60px;line-height:1.8;
+}
+.movement-actions{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:24px;
+}
+.footer-logo{
+  font-family:'Cinzel',serif;font-size:18px;color:var(--gold);
+  letter-spacing:3px;font-weight:700;
+}
+.footer-copy{font-size:12px;color:var(--text-dim);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{font-size:12px;color:var(--text-dim);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color 0.3s;}
+.footer-links a:hover{color:var(--gold);}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:16px 24px;}
+  .nav-links{display:none;}
+  section{padding:80px 24px;}
+  .about{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr;}
+  .booking-steps{grid-template-columns:1fr;}
+  footer{padding:40px 24px;flex-direction:column;text-align:center;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border);}
+}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="bg-canvas" id="bgCanvas"></div>
+<div class="grid-lines"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-icon">AU</div>
+    AU79 Studios
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#booking" class="nav-cta">Book Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">
+    <span>Philadelphia's Premier Recording Studio</span>
+  </div>
+  <h1 class="hero-title">
+    <span class="gold">Where Sound</span><br>
+    <span class="outline">Becomes</span><br>
+    Legacy
+  </h1>
+  <p class="hero-subtitle">Garnet Valley, Pennsylvania</p>
+  <p class="hero-desc">Professional recording, mixing, and mastering engineered to the highest standard. Your vision, perfected.</p>
+  <div class="hero-actions">
+    <a href="#booking" class="btn-primary">Book a Session</a>
+    <a href="#services" class="btn-secondary">Our Services</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-item reveal">
+    <span class="stat-number">10+</span>
+    <span class="stat-label">Years in Operation</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-number">500+</span>
+    <span class="stat-label">Sessions Recorded</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-number">3</span>
+    <span class="stat-label">Studio Engineers</span>
+  </div>
+  <div class="stat-item reveal">
+    <span class="stat-number">24/7</span>
+    <span class="stat-label">Booking Available</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-eyebrow">What We Offer</div>
+  <h2 class="section-title reveal">Studio Services<br>Built for <span style="color:var(--gold)">Excellence</span></h2>
+  <p class="section-desc reveal">Every session at AU79 is engineered with precision, care, and the professional standard your music deserves.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-number">01</div>
+      <div class="service-icon">&#9834;</div>
+      <div class="service-title">Recording Sessions</div>
+      <p class="service-desc">State-of-the-art equipment, treated rooms, and experienced engineers to capture your sound exactly as you hear it in your head.</p>
+      <div class="service-price">Golden Standard Package — From $60</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-number">02</div>
+      <div class="service-icon">&#9880;</div>
+      <div class="service-title">Mixing & Mastering</div>
+      <p class="service-desc">Professional mixing that brings clarity, balance, and presence to every track. Mastered for all major streaming platforms.</p>
+      <div class="service-price">Remote Mixing — $50/song</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-number">03</div>
+      <div class="service-icon">&#9889;</div>
+      <div class="service-title">Hit Talk Radio</div>
+      <p class="service-desc">Get your mixed record placed on Hit Talk Radio immediately. Real spins for real artists. Submit and we play it that same day.</p>
+      <div class="service-price">Included with Mixing Package</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-number">04</div>
+      <div class="service-icon">&#9733;</div>
+      <div class="service-title">Artist Development</div>
+      <p class="service-desc">More than just a studio — we connect artists with industry tools, analytics, and a community of over 7,000 music professionals.</p>
+      <div class="service-price">Hit Talk Membership — From $10/mo</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-number">05</div>
+      <div class="service-icon">&#9836;</div>
+      <div class="service-title">Production Packages</div>
+      <p class="service-desc">3-hour session packs designed for artists who are serious about their craft. Book multiple sessions, maximize your studio time.</p>
+      <div class="service-price">3 Hour Pack — $60 (50% deposit)</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-number">06</div>
+      <div class="service-icon">&#9881;</div>
+      <div class="service-title">Remote Services</div>
+      <p class="service-desc">Can't make it in person? Send your files. Our engineers handle the mix and master remotely with the same professional standard.</p>
+      <div class="service-price">Remote — From $50/track</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="about">
+    <div class="about-visual reveal">
+      <div class="about-logo-large">AU</div>
+      <div class="about-logo-center">AU79</div>
+      <div class="about-badge-float">
+        <div class="about-badge-label">Location</div>
+        <div class="about-badge-value" style="font-size:16px;letter-spacing:1px;">Garnet Valley, PA</div>
+      </div>
+    </div>
+    <div class="about-content reveal">
+      <div class="section-eyebrow">Our Story</div>
+      <h2 class="section-title">Built for the<br><span style="color:var(--gold)">Independent</span><br>Artist</h2>
+      <p class="section-desc">AU79 Recording Studios was built with one mission — to give independent artists access to a professional environment that produces major-label quality sound without major-label prices.</p>
+      <ul class="about-list">
+        <li>Professional-grade equipment and acoustically treated rooms engineered for clarity in every frequency range</li>
+        <li>Powered by Hit Talk — the nation's largest independent music platform with 7,000+ industry professionals</li>
+        <li>Book online, get confirmed automatically, and receive instant SMS updates through our smart booking system</li>
+        <li>Remote engineers available — Kish Kalyan representing the UK, connecting globally to serve artists worldwide</li>
+      </ul>
+      <a href="#booking" class="btn-primary" style="margin-top:40px;display:inline-block;">Start Recording</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking" class="booking-section">
+  <div class="booking-inner">
+    <div class="section-eyebrow" style="justify-content:center;">Book a Session</div>
+    <h2 class="section-title reveal">Simple. Fast.<br><span style="color:var(--gold)">Confirmed.</span></h2>
+    <p class="section-desc reveal" style="margin:0 auto;">Our automated booking system confirms your session instantly and keeps you updated every step of the way.</p>
+    <div class="booking-steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-title">Choose Your Package</div>
+        <p class="step-desc">Select the Golden Standard Package that fits your session needs. Pay 50% deposit to secure your time.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-title">Get Confirmed by SMS</div>
+        <p class="step-desc">Our system automatically sends booking confirmation, reminders, and session updates directly to your phone.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-title">Come Ready to Create</div>
+        <p class="step-desc">Show up prepared. Our engineer is ready. Your sound is waiting. Let's make something that lasts.</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://www.hittalk.net/booking-calendar/golden-standard-package-1" class="btn-primary" target="_blank">Book Online Now</a>
+      <a href="#contact" class="btn-secondary">Ask a Question</a>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-eyebrow">The Engineers</div>
+  <h2 class="section-title reveal">Meet the <span style="color:var(--gold)">Team</span></h2>
+  <p class="section-desc reveal">Detail driven. Vibe focused. Every engineer at AU79 is here to bring your vision to life.</p>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-initials">JB</div>
+      <div class="team-name">Jahlil</div>
+      <div class="team-role">Studio Owner & Engineer</div>
+      <p class="team-bio">Founder of AU79 Recording Studios. Building a professional environment where independent artists create their best work without compromise.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initials">TT</div>
+      <div class="team-name">Teddy Tonite</div>
+      <div class="team-role">Recording Engineer</div>
+      <p class="team-bio">Detail driven. Vibe focused. 20+ years in music production and audio engineering. Every session, every detail, every vibe — that's the standard.</p>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-initials">KK</div>
+      <div class="team-name">Kish Kalyan</div>
+      <div class="team-role">Remote Producer & Mix Engineer</div>
+      <p class="team-bio">Representing the UK, connecting globally. Remote music production and mixing at the highest level — industry quality, wherever you are in the world.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MOVEMENT -->
+<div class="movement">
+  <div class="section-eyebrow" style="justify-content:center;">Join the Community</div>
+  <h2 class="movement-title reveal">
+    Join the <span style="color:var(--gold)">Movement</span>
+  </h2>
+  <p class="movement-subtitle reveal">7,000+ independent artists, producers, and music professionals building something real. The network is free. The resources are not.</p>
+  <div class="movement-actions">
+    <a href="https://www.hittalk.net" class="btn-primary" target="_blank">Join Hit Talk</a>
+    <a href="https://www.hittalk.net/booking-calendar/golden-standard-package-1" class="btn-secondary" target="_blank">Book a Session</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--surface);border-top:1px solid var(--border);">
+  <div class="section-eyebrow">Get in Touch</div>
+  <h2 class="section-title reveal">Contact <span style="color:var(--gold)">AU79</span></h2>
+  <div class="contact-grid" style="margin-top:60px;">
+    <div class="contact-info reveal">
+      <div class="contact-item">
+        <div class="contact-icon">&#9737;</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">1440 Conchester Hwy, Garnet Valley, PA 19060</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#9742;</div>
+        <div>
+          <div class="contact-label">Phone / Text</div>
+          <div class="contact-value">1-833-HIT-TALK</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#9993;</div>
+        <div>
+          <div class="contact-label">Booking</div>
+          <div class="contact-value">hittalk.net/booking-calendar</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">&#9200;</div>
+        <div>
+          <div class="contact-label">Hours</div>
+          <div class="contact-value">By Appointment — Book Online 24/7</div>
+        </div>
+      </div>
+      <div style="margin-top:40px;padding:24px;border:1px solid var(--border);">
+        <div class="contact-label" style="margin-bottom:8px;">From Philadelphia</div>
+        <div style="font-size:14px;color:var(--text-dim);">30-40 min via I-95 S toward Media</div>
+        <div class="contact-label" style="margin-bottom:8px;margin-top:16px;">From PHL Airport</div>
+        <div style="font-size:14px;color:var(--text-dim);">25-35 min — take I-95 N to I-476 S</div>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Artist name or full name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Phone / Email</label>
+        <input type="text" class="form-input" placeholder="Best way to reach you">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Needed</label>
+        <input type="text" class="form-input" placeholder="Recording, mixing, mastering...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell us about your project..."></textarea>
+      </div>
+      <a href="https://www.hittalk.net/booking-calendar/golden-standard-package-1" class="btn-primary" style="display:block;text-align:center;" target="_blank">Send Message & Book Session</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">AU79 Recording Studios</div>
+  <div class="footer-copy">&copy; 2026 AU79 Recording Studios. Powered by Hit Talk.</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#booking">Book</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+const canvas = document.getElementById('bgCanvas');
+for(let i = 0; i < 40; i++){
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.cssText = `
+    left:${Math.random()*100}%;
+    width:${Math.random()*2+1}px;
+    height:${Math.random()*2+1}px;
+    animation-duration:${Math.random()*20+15}s;
+    animation-delay:${Math.random()*20}s;
+  `;
+  canvas.appendChild(p);
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold:0.1,rootMargin:'0px 0px -50px 0px'});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
