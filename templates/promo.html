@@ -36,7 +36,6 @@
             min-height: 100vh;
         }
 
-        /* Animated grid background */
         body::before {
             content: '';
             position: fixed;
@@ -104,15 +103,29 @@
         }
 
         .crown-svg {
-            width: 90px;
+            width: 110px;
             height: auto;
-            filter: drop-shadow(0 0 12px var(--gold)) drop-shadow(0 0 28px rgba(255,215,0,0.5));
+            filter:
+                drop-shadow(0 0 8px rgba(255,215,0,0.9))
+                drop-shadow(0 0 22px rgba(255,215,0,0.55))
+                drop-shadow(0 4px 16px rgba(0,0,0,0.8));
             animation: crownPulse 3s ease-in-out infinite;
         }
 
         @keyframes crownPulse {
-            0%, 100% { filter: drop-shadow(0 0 12px var(--gold)) drop-shadow(0 0 28px rgba(255,215,0,0.5)); }
-            50% { filter: drop-shadow(0 0 20px var(--gold)) drop-shadow(0 0 50px rgba(255,215,0,0.8)) drop-shadow(0 0 70px rgba(255,215,0,0.3)); }
+            0%, 100% {
+                filter:
+                    drop-shadow(0 0 8px rgba(255,215,0,0.9))
+                    drop-shadow(0 0 22px rgba(255,215,0,0.55))
+                    drop-shadow(0 4px 16px rgba(0,0,0,0.8));
+            }
+            50% {
+                filter:
+                    drop-shadow(0 0 14px rgba(255,215,0,1))
+                    drop-shadow(0 0 40px rgba(255,215,0,0.75))
+                    drop-shadow(0 0 70px rgba(255,215,0,0.3))
+                    drop-shadow(0 4px 16px rgba(0,0,0,0.8));
+            }
         }
 
         .crown-beam {
@@ -357,7 +370,6 @@
             text-align: right;
         }
 
-        /* Placeholder state */
         #postImage[data-placeholder="true"] {
             opacity: 0;
             position: absolute;
@@ -528,7 +540,6 @@
             min-height: 80px;
         }
 
-        /* Default empty state for comments */
         #commentsContainer:empty::after {
             content: '// AWAITING TRANSMISSIONS //';
             display: block;
@@ -652,7 +663,6 @@
 </head>
 <body>
 
-    <!-- Side decorative accents -->
     <div class="side-accent-left">
         <div class="accent-pip"></div>
         <div class="accent-pip"></div>
@@ -676,39 +686,250 @@
             <div class="corner-deco tl"></div>
             <div class="corner-deco tr"></div>
 
-            <!-- Crown -->
+            <!-- Realistic Crown -->
             <div class="crown-wrap">
-                <svg class="crown-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                <svg class="crown-svg" viewBox="0 0 160 110" xmlns="http://www.w3.org/2000/svg">
                     <defs>
-                        <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#FFE066;stop-opacity:1" />
-                            <stop offset="40%" style="stop-color:#FFD700;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+
+                        <!-- Main crown body gradient: deep gold to bright to shadowed -->
+                        <linearGradient id="crownBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"   style="stop-color:#FFF3A0;stop-opacity:1" />
+                            <stop offset="18%"  style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="45%"  style="stop-color:#C8920A;stop-opacity:1" />
+                            <stop offset="70%"  style="stop-color:#E6A800;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#7A5200;stop-opacity:1" />
                         </linearGradient>
-                        <linearGradient id="jewelR" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#FF6666" />
-                            <stop offset="100%" style="stop-color:#CC0000" />
+
+                        <!-- Band gradient -->
+                        <linearGradient id="bandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"   style="stop-color:#FFE566;stop-opacity:1" />
+                            <stop offset="30%"  style="stop-color:#D4920C;stop-opacity:1" />
+                            <stop offset="60%"  style="stop-color:#B87800;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6B4400;stop-opacity:1" />
                         </linearGradient>
-                        <linearGradient id="jewelC" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#66FFFF" />
-                            <stop offset="100%" style="stop-color:#00AAAA" />
+
+                        <!-- Side face shading -->
+                        <linearGradient id="leftFaceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"  style="stop-color:#6B4400;stop-opacity:0.7" />
+                            <stop offset="100%" style="stop-color:#FFD700;stop-opacity:0" />
                         </linearGradient>
+
+                        <linearGradient id="rightFaceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"  style="stop-color:#FFD700;stop-opacity:0" />
+                            <stop offset="100%" style="stop-color:#6B4400;stop-opacity:0.7" />
+                        </linearGradient>
+
+                        <!-- Centre peak highlight -->
+                        <linearGradient id="centrePeakGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"   style="stop-color:#C8920A;stop-opacity:1" />
+                            <stop offset="40%"  style="stop-color:#FFF3A0;stop-opacity:1" />
+                            <stop offset="60%"  style="stop-color:#FFF3A0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#C8920A;stop-opacity:1" />
+                        </linearGradient>
+
+                        <!-- Left peak gradient -->
+                        <linearGradient id="leftPeakGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"   style="stop-color:#8A5E00;stop-opacity:1" />
+                            <stop offset="50%"  style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#C8920A;stop-opacity:1" />
+                        </linearGradient>
+
+                        <!-- Right peak gradient -->
+                        <linearGradient id="rightPeakGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%"   style="stop-color:#C8920A;stop-opacity:1" />
+                            <stop offset="50%"  style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8A5E00;stop-opacity:1" />
+                        </linearGradient>
+
+                        <!-- Ruby gem -->
+                        <radialGradient id="rubyGrad" cx="35%" cy="30%" r="65%">
+                            <stop offset="0%"   style="stop-color:#FF9999;stop-opacity:1" />
+                            <stop offset="40%"  style="stop-color:#DD2222;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#660000;stop-opacity:1" />
+                        </radialGradient>
+
+                        <!-- Sapphire gem -->
+                        <radialGradient id="sapphireGrad" cx="35%" cy="30%" r="65%">
+                            <stop offset="0%"   style="stop-color:#99CCFF;stop-opacity:1" />
+                            <stop offset="40%"  style="stop-color:#1155CC;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#002266;stop-opacity:1" />
+                        </sapphireGrad>
+
+                        <!-- Centre diamond -->
+                        <radialGradient id="diamondGrad" cx="30%" cy="25%" r="70%">
+                            <stop offset="0%"   style="stop-color:#FFFFFF;stop-opacity:1" />
+                            <stop offset="30%"  style="stop-color:#CCF0FF;stop-opacity:1" />
+                            <stop offset="60%"  style="stop-color:#88DDFF;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#003355;stop-opacity:1" />
+                        </radialGradient>
+
+                        <!-- Emerald -->
+                        <radialGradient id="emeraldGrad" cx="35%" cy="30%" r="65%">
+                            <stop offset="0%"   style="stop-color:#99FFBB;stop-opacity:1" />
+                            <stop offset="40%"  style="stop-color:#118833;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#004411;stop-opacity:1" />
+                        </radialGradient>
+
+                        <!-- Band stud -->
+                        <radialGradient id="studGrad" cx="35%" cy="30%" r="65%">
+                            <stop offset="0%"  style="stop-color:#FFFACC;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#AA8800;stop-opacity:1" />
+                        </radialGradient>
+
+                        <!-- Inner shadow overlay for depth -->
+                        <linearGradient id="innerShadow" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"   style="stop-color:#000000;stop-opacity:0.0" />
+                            <stop offset="100%" style="stop-color:#000000;stop-opacity:0.45" />
+                        </linearGradient>
+
+                        <!-- Bevel highlight on band top edge -->
+                        <linearGradient id="bandBevel" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%"  style="stop-color:#FFFFFF;stop-opacity:0.35" />
+                            <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.0" />
+                        </linearGradient>
+
+                        <!-- Drop shadow filter -->
+                        <filter id="gemGlow" x="-40%" y="-40%" width="180%" height="180%">
+                            <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                        </filter>
+
+                        <filter id="softShadow" x="-10%" y="-10%" width="120%" height="140%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.6"/>
+                        </filter>
+
                     </defs>
-                    <!-- Crown base body -->
-                    <polygon points="10,70 10,30 30,50 60,10 90,50 110,30 110,70" fill="url(#crownGrad)" stroke="#FFF0A0" stroke-width="1.5"/>
-                    <!-- Crown base bar -->
-                    <rect x="8" y="64" width="104" height="10" rx="3" fill="url(#crownGrad)" stroke="#FFF0A0" stroke-width="1"/>
-                    <!-- Jewels -->
-                    <circle cx="60" cy="15" r="6" fill="url(#jewelC)" stroke="#00FFFF" stroke-width="1"/>
-                    <circle cx="18" cy="38" r="4" fill="url(#jewelR)" stroke="#FF6666" stroke-width="1"/>
-                    <circle cx="102" cy="38" r="4" fill="url(#jewelR)" stroke="#FF6666" stroke-width="1"/>
-                    <!-- Shine lines -->
-                    <line x1="55" y1="12" x2="58" y2="10" stroke="white" stroke-width="1" opacity="0.6"/>
-                    <line x1="16" y1="35" x2="18" y2="33" stroke="white" stroke-width="1" opacity="0.6"/>
-                    <!-- Base dots -->
-                    <circle cx="30" cy="67" r="2.5" fill="#FFF0A0"/>
-                    <circle cx="60" cy="67" r="2.5" fill="#FFF0A0"/>
-                    <circle cx="90" cy="67" r="2.5" fill="#FFF0A0"/>
+
+                    <!-- ── DROP SHADOW BASE ── -->
+                    <ellipse cx="80" cy="103" rx="58" ry="5" fill="rgba(0,0,0,0.5)" />
+
+                    <!-- ══════════════════════════════
+                         CROWN BODY  (five-point silhouette)
+                         Points: left edge → left outer peak → left valley →
+                                 left inner peak → centre valley →
+                                 centre peak top → centre valley right →
+                                 right inner peak → right valley →
+                                 right outer peak → right edge
+                    ══════════════════════════════ -->
+
+                    <!-- Main filled crown body -->
+                    <path d="
+                        M 14,88
+                        L 14,52
+                        L 32,68
+                        L 46,34
+                        L 58,54
+                        L 80,8
+                        L 102,54
+                        L 114,34
+                        L 128,68
+                        L 146,52
+                        L 146,88
+                        Z
+                    " fill="url(#crownBodyGrad)" filter="url(#softShadow)" />
+
+                    <!-- Left face shadow -->
+                    <path d="
+                        M 14,88 L 14,52 L 32,68 L 46,34 L 58,54 L 80,8
+                        L 80,88 Z
+                    " fill="url(#leftFaceGrad)" />
+
+                    <!-- Right face shadow -->
+                    <path d="
+                        M 80,8 L 102,54 L 114,34 L 128,68 L 146,52 L 146,88
+                        L 80,88 Z
+                    " fill="url(#rightFaceGrad)" />
+
+                    <!-- Centre peak highlight (bright spine) -->
+                    <path d="
+                        M 80,8 L 102,54 L 80,46 L 58,54 Z
+                    " fill="url(#centrePeakGrad)" opacity="0.55" />
+
+                    <!-- Left outer peak face highlight -->
+                    <path d="
+                        M 14,52 L 32,68 L 46,34 Z
+                    " fill="url(#leftPeakGrad)" opacity="0.5" />
+
+                    <!-- Right outer peak face highlight -->
+                    <path d="
+                        M 146,52 L 128,68 L 114,34 Z
+                    " fill="url(#rightPeakGrad)" opacity="0.5" />
+
+                    <!-- Overall inner shadow for depth -->
+                    <path d="
+                        M 14,88 L 14,52 L 32,68 L 46,34 L 58,54
+                        L 80,8 L 102,54 L 114,34 L 128,68
+                        L 146,52 L 146,88 Z
+                    " fill="url(#innerShadow)" />
+
+                    <!-- ── CROWN BAND ── -->
+                    <rect x="14" y="80" width="132" height="16" rx="2" fill="url(#bandGrad)" />
+                    <!-- Band bevel highlight -->
+                    <rect x="14" y="80" width="132" height="5"  rx="2" fill="url(#bandBevel)" />
+                    <!-- Band bottom edge shadow line -->
+                    <rect x="14" y="93" width="132" height="3"  rx="1" fill="rgba(0,0,0,0.4)" />
+
+                    <!-- Band engraving lines -->
+                    <line x1="40"  y1="81" x2="40"  y2="95" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>
+                    <line x1="65"  y1="81" x2="65"  y2="95" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>
+                    <line x1="80"  y1="81" x2="80"  y2="95" stroke="rgba(255,255,255,0.12)" stroke-width="0.8"/>
+                    <line x1="95"  y1="81" x2="95"  y2="95" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>
+                    <line x1="120" y1="81" x2="120" y2="95" stroke="rgba(0,0,0,0.25)" stroke-width="0.8"/>
+
+                    <!-- ── BAND STUDS ── -->
+                    <circle cx="27"  cy="88" r="3.5" fill="url(#studGrad)" stroke="#7A5200" stroke-width="0.8"/>
+                    <circle cx="52"  cy="88" r="3.5" fill="url(#studGrad)" stroke="#7A5200" stroke-width="0.8"/>
+                    <circle cx="80"  cy="88" r="3.5" fill="url(#studGrad)" stroke="#7A5200" stroke-width="0.8"/>
+                    <circle cx="108" cy="88" r="3.5" fill="url(#studGrad)" stroke="#7A5200" stroke-width="0.8"/>
+                    <circle cx="133" cy="88" r="3.5" fill="url(#studGrad)" stroke="#7A5200" stroke-width="0.8"/>
+                    <!-- Stud shine dots -->
+                    <circle cx="25.5" cy="86.5" r="1.2" fill="rgba(255,255,255,0.7)"/>
+                    <circle cx="50.5" cy="86.5" r="1.2" fill="rgba(255,255,255,0.7)"/>
+                    <circle cx="78.5" cy="86.5" r="1.2" fill="rgba(255,255,255,0.7)"/>
+                    <circle cx="106.5" cy="86.5" r="1.2" fill="rgba(255,255,255,0.7)"/>
+                    <circle cx="131.5" cy="86.5" r="1.2" fill="rgba(255,255,255,0.7)"/>
+
+                    <!-- ══════════════════════
+                         GEMS
+                    ══════════════════════ -->
+
+                    <!-- Centre Diamond on tip of crown -->
+                    <polygon points="80,8 75,18 80,22 85,18" fill="url(#diamondGrad)" stroke="rgba(255,255,255,0.6)" stroke-width="0.7" filter="url(#gemGlow)"/>
+                    <polygon points="80,8 75,18 80,14" fill="rgba(255,255,255,0.55)"/>
+                    <polygon points="80,8 85,18 80,14" fill="rgba(0,150,200,0.4)"/>
+
+                    <!-- Ruby on left outer peak -->
+                    <polygon points="30,42 25,52 30,56 35,52" fill="url(#rubyGrad)" stroke="rgba(255,100,100,0.7)" stroke-width="0.7" filter="url(#gemGlow)"/>
+                    <polygon points="30,42 25,52 30,48" fill="rgba(255,180,180,0.5)"/>
+
+                    <!-- Emerald on right outer peak -->
+                    <polygon points="130,42 125,52 130,56 135,52" fill="url(#emeraldGrad)" stroke="rgba(100,255,150,0.7)" stroke-width="0.7" filter="url(#gemGlow)"/>
+                    <polygon points="130,42 125,52 130,48" fill="rgba(180,255,200,0.5)"/>
+
+                    <!-- Sapphire on left inner peak -->
+                    <circle cx="46" cy="38" r="5.5" fill="url(#sapphireGrad)" stroke="rgba(100,160,255,0.8)" stroke-width="0.8" filter="url(#gemGlow)"/>
+                    <ellipse cx="44" cy="36" rx="2" ry="1.3" fill="rgba(200,230,255,0.6)" transform="rotate(-20,44,36)"/>
+
+                    <!-- Ruby on right inner peak -->
+                    <circle cx="114" cy="38" r="5.5" fill="url(#rubyGrad)" stroke="rgba(255,100,100,0.8)" stroke-width="0.8" filter="url(#gemGlow)"/>
+                    <ellipse cx="112" cy="36" rx="2" ry="1.3" fill="rgba(255,200,200,0.6)" transform="rotate(-20,112,36)"/>
+
+                    <!-- ── PEAK ACCENT LINES (fine metalwork detail) ── -->
+                    <!-- Centre peak left edge -->
+                    <line x1="80" y1="10" x2="59"  y2="54" stroke="rgba(255,240,150,0.35)" stroke-width="0.8"/>
+                    <!-- Centre peak right edge -->
+                    <line x1="80" y1="10" x2="101" y2="54" stroke="rgba(120,80,0,0.4)"     stroke-width="0.8"/>
+                    <!-- Left outer peak left edge -->
+                    <line x1="32" y1="68" x2="46"  y2="36" stroke="rgba(255,240,150,0.3)"  stroke-width="0.7"/>
+                    <!-- Right outer peak right edge -->
+                    <line x1="128" y1="68" x2="114" y2="36" stroke="rgba(120,80,0,0.35)"   stroke-width="0.7"/>
+
+                    <!-- ── OVERALL SHINE OVERLAY (top highlight) ── -->
+                    <path d="
+                        M 14,52 L 32,68 L 46,34 L 58,54 L 80,8 L 102,54 L 114,34 L 128,68 L 146,52
+                        L 146,70 L 14,70 Z
+                    " fill="rgba(255,255,255,0.04)" />
+
                 </svg>
                 <div class="crown-beam"></div>
             </div>
@@ -733,7 +954,6 @@
                 <div class="image-frame-inner-tl"></div>
                 <div class="image-frame-inner-br"></div>
                 <div class="image-inner">
-                    <!-- HUD overlays -->
                     <div class="image-hud-tl">
                         SYS:ACTIVE<br>
                         CAM:MAIN-01<br>
@@ -749,13 +969,11 @@
                         FREQ:HIGH
                     </div>
 
-                    <!-- Placeholder -->
                     <div class="image-placeholder-text">
                         <span class="ph-icon">◈</span>
                         <p>Instagram image loads here</p>
                     </div>
 
-                    <!-- The main image -->
                     <img id="postImage" src="" alt="AU79 Studios Post" data-placeholder="true" />
 
                     <div class="image-overlay"></div>
@@ -820,7 +1038,6 @@
     </div>
 
     <script>
-        // Reveal image when loaded and remove placeholder state
         const img = document.getElementById('postImage');
         if (img && img.src && img.src !== window.location.href) {
             img.addEventListener('load', function () {
@@ -835,7 +1052,6 @@
             });
         }
 
-        // Animate HUD timestamp
         const hudTL = document.querySelector('.image-hud-tl');
         if (hudTL) {
             setInterval(() => {
