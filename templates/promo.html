@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AU79 Recording Studios</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
+
+        :root {
+            --gold: #FFD700;
+            --gold-dark: #B8860B;
+            --gold-light: #FFF0A0;
+            --cyan: #00FFFF;
+            --cyan-dim: #00BFBF;
+            --magenta: #FF00FF;
+            --magenta-dim: #CC00CC;
+            --dark-bg: #020408;
+            --panel-bg: #060D14;
+            --panel-border: #0A1F30;
+            --text-main: #C8E6F5;
+            --text-dim: #4A7A9B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            background-color: var(--dark-bg);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(0,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 50% 0%, rgba(0,255,255,0.05) 0%, transparent 60%),
+                        radial-gradient(ellipse at 0% 100%, rgba(255,0,255,0.04) 0%, transparent 50%),
+                        radial-gradient(ellipse at 100% 100%, rgba(255,215,0,0.04) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 0 60px 0;
+        }
+
+        /* ─── HEADER ─── */
+        .site-header {
+            position: relative;
+            width: 100%;
+            padding: 30px 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .header-scanline {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,255,255,0.015) 2px,
+                rgba(0,255,255,0.015) 4px
+            );
+            pointer-events: none;
+        }
+
+        .crown-wrap {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .crown-svg {
+            width: 90px;
+            height: auto;
+            filter: drop-shadow(0 0 12px var(--gold)) drop-shadow(0 0 28px rgba(255,215,0,0.5));
+            animation: crownPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes crownPulse {
+            0%, 100% { filter: drop-shadow(0 0 12px var(--gold)) drop-shadow(0 0 28px rgba(255,215,0,0.5)); }
+            50% { filter: drop-shadow(0 0 20px var(--gold)) drop-shadow(0 0 50px rgba(255,215,0,0.8)) drop-shadow(0 0 70px rgba(255,215,0,0.3)); }
+        }
+
+        .crown-beam {
+            width: 2px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            margin-top: 2px;
+        }
+
+        .logo-main {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.4rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            text-shadow:
+                0 0 10px var(--gold),
+                0 0 30px rgba(255,215,0,0.6),
+                0 0 60px rgba(255,215,0,0.3),
+                2px 2px 0 rgba(0,0,0,0.8);
+            line-height: 1;
+            position: relative;
+        }
+
+        .logo-main::before {
+            content: 'AU79';
+            position: absolute;
+            top: 0; left: 0;
+            color: var(--cyan);
+            opacity: 0.15;
+            clip-path: inset(40% 0 50% 0);
+            transform: translateX(-3px);
+            animation: glitch 5s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { clip-path: inset(40% 0 50% 0); transform: translateX(-3px); opacity: 0.15; }
+            92% { clip-path: inset(10% 0 80% 0); transform: translateX(3px); opacity: 0.4; }
+            94% { clip-path: inset(70% 0 10% 0); transform: translateX(-2px); opacity: 0.3; }
+            96% { clip-path: inset(30% 0 60% 0); transform: translateX(2px); opacity: 0.2; }
+        }
+
+        .logo-sub {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.65rem, 2.5vw, 1rem);
+            font-weight: 400;
+            letter-spacing: 0.45em;
+            color: var(--cyan);
+            text-shadow: 0 0 10px var(--cyan), 0 0 20px rgba(0,255,255,0.4);
+            margin-top: 4px;
+            text-transform: uppercase;
+        }
+
+        .location-tag {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 14px;
+            padding: 6px 18px;
+            border: 1px solid rgba(255,215,0,0.3);
+            background: rgba(255,215,0,0.05);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.78rem;
+            color: var(--gold-light);
+            letter-spacing: 0.2em;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+            text-transform: uppercase;
+        }
+
+        .location-tag .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        .header-divider {
+            width: 100%;
+            margin-top: 24px;
+            height: 1px;
+            position: relative;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                var(--magenta-dim) 20%,
+                var(--cyan) 50%,
+                var(--magenta-dim) 80%,
+                transparent 100%
+            );
+            box-shadow: 0 0 10px rgba(0,255,255,0.4);
+        }
+
+        .header-divider::before,
+        .header-divider::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+        .header-divider::before { left: 20%; }
+        .header-divider::after { right: 20%; }
+
+        /* ─── CORNER DECORATIONS ─── */
+        .corner-deco {
+            position: absolute;
+            width: 30px; height: 30px;
+            opacity: 0.6;
+        }
+        .corner-deco.tl { top: 10px; left: 10px; border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan); }
+        .corner-deco.tr { top: 10px; right: 10px; border-top: 2px solid var(--cyan); border-right: 2px solid var(--cyan); }
+
+        /* ─── MAIN IMAGE SECTION ─── */
+        .image-section {
+            padding: 28px 20px 0;
+            position: relative;
+        }
+
+        .image-frame-outer {
+            position: relative;
+            border: 1px solid rgba(0,255,255,0.2);
+            padding: 3px;
+            background: linear-gradient(135deg, rgba(0,255,255,0.1), rgba(255,0,255,0.1));
+            box-shadow:
+                0 0 0 1px rgba(255,215,0,0.1),
+                0 0 30px rgba(0,255,255,0.1),
+                inset 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        .image-frame-outer::before,
+        .image-frame-outer::after {
+            content: '';
+            position: absolute;
+            width: 20px; height: 20px;
+            z-index: 2;
+        }
+        .image-frame-outer::before {
+            top: -2px; left: -2px;
+            border-top: 3px solid var(--gold);
+            border-left: 3px solid var(--gold);
+            box-shadow: -3px -3px 10px rgba(255,215,0,0.4);
+        }
+        .image-frame-outer::after {
+            bottom: -2px; right: -2px;
+            border-bottom: 3px solid var(--gold);
+            border-right: 3px solid var(--gold);
+            box-shadow: 3px 3px 10px rgba(255,215,0,0.4);
+        }
+
+        .image-frame-inner-tl,
+        .image-frame-inner-br {
+            position: absolute;
+            width: 20px; height: 20px;
+            z-index: 2;
+        }
+        .image-frame-inner-tl {
+            top: -2px; right: -2px;
+            border-top: 3px solid var(--magenta-dim);
+            border-right: 3px solid var(--magenta-dim);
+        }
+        .image-frame-inner-br {
+            bottom: -2px; left: -2px;
+            border-bottom: 3px solid var(--magenta-dim);
+            border-left: 3px solid var(--magenta-dim);
+        }
+
+        .image-inner {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #0A1520;
+            min-height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #postImage {
+            width: 100%;
+            height: auto;
+            min-height: 420px;
+            object-fit: cover;
+            display: block;
+            filter: brightness(0.95) contrast(1.05) saturate(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                linear-gradient(to bottom, transparent 60%, rgba(2,4,8,0.85) 100%),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(0,0,0,0.04) 3px,
+                    rgba(0,0,0,0.04) 4px
+                );
+            pointer-events: none;
+        }
+
+        .image-hud-tl {
+            position: absolute;
+            top: 12px; left: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--cyan);
+            opacity: 0.7;
+            text-shadow: 0 0 6px var(--cyan);
+            line-height: 1.6;
+        }
+
+        .image-hud-tr {
+            position: absolute;
+            top: 12px; right: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--gold);
+            opacity: 0.7;
+            text-shadow: 0 0 6px var(--gold);
+            text-align: right;
+            line-height: 1.6;
+        }
+
+        .image-hud-br {
+            position: absolute;
+            bottom: 12px; right: 12px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            color: var(--magenta-dim);
+            opacity: 0.7;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        /* Placeholder state */
+        #postImage[data-placeholder="true"] {
+            opacity: 0;
+            position: absolute;
+        }
+
+        .image-placeholder-text {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-dim);
+            z-index: 1;
+        }
+
+        .image-placeholder-text .ph-icon {
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        .image-placeholder-text p {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            opacity: 0.4;
+            text-transform: uppercase;
+        }
+
+        /* ─── CAPTION ─── */
+        .caption-section {
+            padding: 0 20px;
+            margin-top: -1px;
+        }
+
+        .caption-panel {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0,255,255,0.12);
+            border-top: none;
+            padding: 20px 24px 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .caption-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--magenta-dim), var(--gold), var(--cyan));
+            opacity: 0.6;
+        }
+
+        .caption-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.35em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+
+        #postCaption {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.4;
+            letter-spacing: 0.03em;
+        }
+
+        /* ─── STATS BAR ─── */
+        .stats-bar {
+            display: flex;
+            gap: 0;
+            padding: 0 20px;
+            margin-top: 18px;
+        }
+
+        .stat-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 8px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0,255,255,0.08);
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .stat-item:not(:last-child) {
+            border-right: none;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .stat-item:hover::after { width: 80%; }
+        .stat-item:hover { background: rgba(255,215,0,0.04); }
+
+        .stat-value {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+
+        .stat-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-top: 3px;
+            text-transform: uppercase;
+        }
+
+        /* ─── COMMENTS SECTION ─── */
+        .comments-section {
+            padding: 28px 20px 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0,255,255,0.4);
+            text-transform: uppercase;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,255,255,0.4), transparent);
+        }
+
+        .section-badge {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.6rem;
+            padding: 3px 10px;
+            border: 1px solid rgba(0,255,255,0.3);
+            color: var(--cyan);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        #commentsContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 80px;
+        }
+
+        /* Default empty state for comments */
+        #commentsContainer:empty::after {
+            content: '// AWAITING TRANSMISSIONS //';
+            display: block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            opacity: 0.4;
+            letter-spacing: 0.3em;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* ─── FOOTER ─── */
+        .site-footer {
+            margin-top: 50px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent,
+                var(--gold-dark) 30%,
+                var(--gold) 50%,
+                var(--gold-dark) 70%,
+                transparent
+            );
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(255,215,0,0.3);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            color: var(--gold);
+            opacity: 0.7;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer-meta span { opacity: 0.5; }
+        .footer-meta .sep { opacity: 0.2; }
+
+        .footer-glow {
+            width: 200px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0.3;
+            margin-top: 4px;
+        }
+
+        /* ─── SIDE ACCENTS ─── */
+        .side-accent-left,
+        .side-accent-right {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+
+        .side-accent-left { left: 8px; }
+        .side-accent-right { right: 8px; }
+
+        .accent-pip {
+            width: 3px; height: 20px;
+            background: var(--cyan);
+        }
+
+        .accent-pip:nth-child(2) { height: 12px; opacity: 0.6; }
+        .accent-pip:nth-child(3) { height: 30px; }
+        .accent-pip:nth-child(4) { height: 8px; opacity: 0.4; }
+        .accent-pip:nth-child(5) { height: 16px; }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 600px) {
+            .side-accent-left,
+            .side-accent-right { display: none; }
+
+            .image-inner { min-height: 280px; }
+            #postImage { min-height: 280px; }
+
+            .stats-bar { gap: 0; }
+            .stat-item { padding: 10px 4px; }
+            .stat-value { font-size: 0.9rem; }
+
+            .caption-panel { padding: 16px 16px 18px; }
+
+            .image-hud-tl,
+            .image-hud-tr,
+            .image-hud-br { display: none; }
+        }
+
+        @media (min-width: 601px) and (max-width: 900px) {
+            .image-inner { min-height: 360px; }
+            #postImage { min-height: 360px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Side decorative accents -->
+    <div class="side-accent-left">
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+    </div>
+    <div class="side-accent-right">
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+        <div class="accent-pip"></div>
+    </div>
+
+    <div class="page-wrapper">
+
+        <!-- ─── HEADER ─── -->
+        <header class="site-header">
+            <div class="header-scanline"></div>
+            <div class="corner-deco tl"></div>
+            <div class="corner-deco tr"></div>
+
+            <!-- Crown -->
+            <div class="crown-wrap">
+                <svg class="crown-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="crownGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFE066;stop-opacity:1" />
+                            <stop offset="40%" style="stop-color:#FFD700;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#B8860B;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="jewelR" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FF6666" />
+                            <stop offset="100%" style="stop-color:#CC0000" />
+                        </linearGradient>
+                        <linearGradient id="jewelC" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#66FFFF" />
+                            <stop offset="100%" style="stop-color:#00AAAA" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Crown base body -->
+                    <polygon points="10,70 10,30 30,50 60,10 90,50 110,30 110,70" fill="url(#crownGrad)" stroke="#FFF0A0" stroke-width="1.5"/>
+                    <!-- Crown base bar -->
+                    <rect x="8" y="64" width="104" height="10" rx="3" fill="url(#crownGrad)" stroke="#FFF0A0" stroke-width="1"/>
+                    <!-- Jewels -->
+                    <circle cx="60" cy="15" r="6" fill="url(#jewelC)" stroke="#00FFFF" stroke-width="1"/>
+                    <circle cx="18" cy="38" r="4" fill="url(#jewelR)" stroke="#FF6666" stroke-width="1"/>
+                    <circle cx="102" cy="38" r="4" fill="url(#jewelR)" stroke="#FF6666" stroke-width="1"/>
+                    <!-- Shine lines -->
+                    <line x1="55" y1="12" x2="58" y2="10" stroke="white" stroke-width="1" opacity="0.6"/>
+                    <line x1="16" y1="35" x2="18" y2="33" stroke="white" stroke-width="1" opacity="0.6"/>
+                    <!-- Base dots -->
+                    <circle cx="30" cy="67" r="2.5" fill="#FFF0A0"/>
+                    <circle cx="60" cy="67" r="2.5" fill="#FFF0A0"/>
+                    <circle cx="90" cy="67" r="2.5" fill="#FFF0A0"/>
+                </svg>
+                <div class="crown-beam"></div>
+            </div>
+
+            <!-- Logo -->
+            <div class="logo-main">AU79</div>
+            <div class="logo-sub">Recording Studios</div>
+
+            <!-- Location -->
+            <div class="location-tag">
+                <span class="dot"></span>
+                45 mins from Philadelphia, PA
+                <span class="dot"></span>
+            </div>
+
+            <div class="header-divider"></div>
+        </header>
+
+        <!-- ─── MAIN IMAGE ─── -->
+        <section class="image-section">
+            <div class="image-frame-outer">
+                <div class="image-frame-inner-tl"></div>
+                <div class="image-frame-inner-br"></div>
+                <div class="image-inner">
+                    <!-- HUD overlays -->
+                    <div class="image-hud-tl">
+                        SYS:ACTIVE<br>
+                        CAM:MAIN-01<br>
+                        REC:●
+                    </div>
+                    <div class="image-hud-tr">
+                        AU79<br>
+                        STUDIO:ONLINE<br>
+                        PHI -45MI
+                    </div>
+                    <div class="image-hud-br">
+                        SIGNAL:LOCKED<br>
+                        FREQ:HIGH
+                    </div>
+
+                    <!-- Placeholder -->
+                    <div class="image-placeholder-text">
+                        <span class="ph-icon">◈</span>
+                        <p>Instagram image loads here</p>
+                    </div>
+
+                    <!-- The main image -->
+                    <img id="postImage" src="" alt="AU79 Studios Post" data-placeholder="true" />
+
+                    <div class="image-overlay"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── CAPTION ─── -->
+        <section class="caption-section">
+            <div class="caption-panel">
+                <div class="caption-label">// transmission //</div>
+                <div id="postCaption">Post caption and headline text will appear here — drop your message to the world.</div>
+            </div>
+        </section>
+
+        <!-- ─── STATS BAR ─── -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-value">AU79</span>
+                <span class="stat-label">Studio</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">Access</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">~45MI</span>
+                <span class="stat-label">From Philly</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">∞</span>
+                <span class="stat-label">Frequency</span>
+            </div>
+        </div>
+
+        <!-- ─── COMMENTS ─── -->
+        <section class="comments-section">
+            <div class="section-header">
+                <span class="section-title">Comments</span>
+                <div class="section-line"></div>
+                <span class="section-badge">Live Feed</span>
+            </div>
+            <div id="commentsContainer"></div>
+        </section>
+
+        <!-- ─── FOOTER ─── -->
+        <footer class="site-footer">
+            <div class="footer-divider"></div>
+            <div class="footer-inner">
+                <div class="footer-logo">AU79 STUDIOS</div>
+                <div class="footer-meta">
+                    <span>Recording</span>
+                    <span class="sep">|</span>
+                    <span>Production</span>
+                    <span class="sep">|</span>
+                    <span>45 mins from Philadelphia</span>
+                </div>
+                <div class="footer-glow"></div>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // Reveal image when loaded and remove placeholder state
+        const img = document.getElementById('postImage');
+        if (img && img.src && img.src !== window.location.href) {
+            img.addEventListener('load', function () {
+                img.removeAttribute('data-placeholder');
+                img.style.opacity = '1';
+                img.style.position = 'relative';
+                const ph = document.querySelector('.image-placeholder-text');
+                if (ph) ph.style.display = 'none';
+            });
+            img.addEventListener('error', function () {
+                img.style.display = 'none';
+            });
+        }
+
+        // Animate HUD timestamp
+        const hudTL = document.querySelector('.image-hud-tl');
+        if (hudTL) {
+            setInterval(() => {
+                const now = new Date();
+                const ts = now.toTimeString().slice(0,8);
+                hudTL.innerHTML = `SYS:ACTIVE<br>CAM:MAIN-01<br>REC:● ${ts}`;
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
